@@ -1,1 +1,10 @@
 .DS_Store
+*.iml
+.gradle
+FreeOb/local.properties
+FreeOb/.idea/workspace.xml
+FreeOb/.idea/libraries
+.DS_Store
+FreeOb/build
+FreeOb/captures
+.externalNativeBuild
