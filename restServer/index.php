@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once "DB.php";
 
 // Quick en dirty php rest api
-$db = new DB('127.0.0.1', "freeOb", "root", "");
+$db = new DB();
 
 if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 	

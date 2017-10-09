@@ -1,10 +1,12 @@
 <?php
+require_once "config.php";
+
 class DB {
 	
 	private $pdo;
 	
-	public function __construct($host, $dbname, $username, $password) {
-		$pdo = new PDO('mysql:host='.$host.';dbname='.$dbname.';charset=utf8', $username, $password);
+	public function __construct() {
+		$pdo = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8', DB_USER, DB_PASS);
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$this->pdo = $pdo;
 	}
