@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 		// Get all adverts
 		$getAdverts = $db->query('SELECT adverts.id, user_id, advert_name, advert_description, '.
 		                         'user.name as "user_name", category_advert.category_name '.
-		                         'FROM adverts '.
+		                         'FROM `adverts` '.
 		                         'LEFT JOIN user ON adverts.user_id = user.id '.
 		                         'LEFT JOIN category_advert on advert_category_id = category_advert.id');
 		header("Content-Type: application/json");
