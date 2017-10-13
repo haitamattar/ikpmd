@@ -1,44 +1,44 @@
 package com.school.haitamelattar.freeob;
 
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.school.haitamelattar.freeob.json.GetJsonData;
 import com.school.haitamelattar.freeob.model.Advert;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
 public class MainActivity extends AppCompatActivity {
+
+    public Advert[] adverts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new GetJsonData().execute("http://192.168.1.36:8888/adverts");
+        GetJsonData data = new GetJsonData();
+        data.execute("http://192.168.1.36:8888/auth");
+
 //        Log.e("JSON OB: " , new GetJsonData().execute("http://192.168.1.36:8888/adverts").toString());
 
-        Gson gson = new Gson();
-        String jsonOutput = new GetJsonData().execute("http://192.168.1.36:8888/adverts").toString();
-        Log.d("SHIT", jsonOutput);
+//        Gson gson = new Gson();
+//        new GetJsonData().execute("http://192.168.1.36:8888/adverts");
+//        Log.d("SHIT", data.jsonString);
 
-        Advert[] enums = gson.fromJson(jsonOutput, Advert[].class);
+//        Advert[] enums = gson.fromJson(jsonOutput, Advert[].class);
 
-        for(int i = 0; i < enums.length; i++){
-            Log.e("name: " , enums[i].getClass().getName());
+        for (int i = 0; i < adverts.length; i++) {
+            Log.d("GOname: ", adverts[i].getName());
         }
 
 
     }
+
+
 }

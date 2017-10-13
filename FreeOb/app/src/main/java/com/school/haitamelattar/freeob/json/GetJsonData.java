@@ -3,6 +3,11 @@ package com.school.haitamelattar.freeob.json;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.school.haitamelattar.freeob.MainActivity;
+import com.school.haitamelattar.freeob.model.Advert;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,10 +22,12 @@ import java.net.URLConnection;
  * Created by haitamelattar on 08-10-17.
  */
 
-public class GetJsonData extends AsyncTask<String, String, JSONObject > {
+public class GetJsonData extends AsyncTask<String, String, JSONArray > {
+
+    public String jsonString;
 
     @Override
-    protected JSONObject doInBackground(String... params) {
+    protected JSONArray doInBackground(String... params) {
         HttpURLConnection connection = null;
 
         BufferedReader reader = null;
@@ -38,13 +45,18 @@ public class GetJsonData extends AsyncTask<String, String, JSONObject > {
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuffer.append(line);
             }
-            JSONObject goei = new JSONObject(stringBuffer.toString());
-            return new JSONObject(stringBuffer.toString());
+//            JSONObject goei = new JSONObject(stringBuffer.toString());
+            this.jsonString = stringBuffer.toString();
+            JSONArray jsonAr = new JSONArray(stringBuffer.toString());
+            Log.d("DEB: ",  String.valueOf(jsonAr));
+            return jsonAr;
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d("FOUT", "WERKT NIET");
             return null;
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.d("FOUT", "WERKT NIET");
             return null;
         }
         finally {
@@ -60,15 +72,18 @@ public class GetJsonData extends AsyncTask<String, String, JSONObject > {
 
 
     @Override
-    protected void onPostExecute(JSONObject response)
+    protected void onPostExecute(JSONArray response)
     {
         if(response != null)
         {
-            try {
-                Log.e("App", "Success: " + response.getString("JsonElement") );
-            } catch (JSONException ex) {
-                Log.e("App", "Failure", ex);
+            Gson gson = new Gson();
+            Advert[] enums = gson.fromJson(String.valueOf(response), Advert[].class);
+            for(int i = 0; i < enums.length; i++){
+                Log.d("name: " , enums[i].getName());
             }
+//            adverts = enums;
+            Log.e("App", "Success: ");
+
         }
     }
 

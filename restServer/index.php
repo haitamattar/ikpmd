@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 require_once "DB.php";
 
 // Quick en dirty php rest api
-$db = new DB();
+$db = new DB('127.0.0.1', "freeOb", "root", "");
 
 if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 	
@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 		// Get all adverts
 		$getAdverts = $db->query('SELECT adverts.id, user_id, advert_name, advert_description, '.
 		                         'user.name as "user_name", category_advert.category_name '.
-		                         'FROM `adverts` '.
+		                         'FROM adverts '.
 		                         'LEFT JOIN user ON adverts.user_id = user.id '.
 		                         'LEFT JOIN category_advert on advert_category_id = category_advert.id');
 		header("Content-Type: application/json");
@@ -47,12 +47,13 @@ function login($db){
 		                                         array(':email'=>$email))[0]['password'])) {
 			$csStrong = true;
 			$token = bin2hex(openssl_random_pseudo_bytes(64, $csStrong));
-			$user_id = $db->query('SELECT id FROM user WHERE email=:email', array(':email'=>$email))[0]['id'];
+			$user_id = $db->query('SELECT id, email FROM user WHERE email=:email', array(':email'=>$email))[0];
 			
 			$db->query('INSERT INTO login_tokens VALUES (NULL, :token, :user_id)',
-			                                            array(':token'=>sha1($token), ':user_id'=>$user_id));
+			                                            array(':token'=>sha1($token), ':user_id'=>$user_id['id']));
+			
 			header("Content-type:application/json");
-			echo '{  "User_id": "'.$user_id.'", "Token": "'.$token.'" }';
+			echo '{  "User_id": "'.$user_id['id'].'", "Email": "'.$user_id['email'].'","AuthToken": "'.$token.'" }';
 		} else {
 			http_response_code(401);
 		}

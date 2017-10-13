@@ -17,6 +17,12 @@ public class User {
         this.authToken = authToken;
     }
 
+    public User(Long id, String email) {
+        this.id = id;
+        this.email = email;
+        this.authToken = authToken;
+    }
+
     public Long getId() {
         return id;
     }
