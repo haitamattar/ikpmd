@@ -1,5 +1,8 @@
 package com.school.haitamelattar.freeob.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import static android.R.attr.id;
 
 /**
@@ -7,8 +10,14 @@ import static android.R.attr.id;
  */
 
 public class User {
+    @SerializedName("User_id")
+    @Expose
     private Long id = null;
+    @SerializedName("Email")
+    @Expose
     private String email;
+    @SerializedName("AuthToken")
+    @Expose
     private String authToken;
 
     public User(Long id, String email, String authToken) {
