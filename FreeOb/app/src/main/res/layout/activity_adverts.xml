@@ -4,6 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.school.haitamelattar.freeob.AdvertsActivity">
+
+    <Button
+        android:text="Get all adverts"
+        android:layout_height="wrap_content"
+        android:id="@+id/getAdverts"
+        android:layout_marginTop="31dp"
+        android:fontFamily="sans-serif"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:layout_width="match_parent"/>
 
 </android.support.constraint.ConstraintLayout>

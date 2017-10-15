@@ -22,20 +22,6 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="Login"
-        android:onClick="testFunctie"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_marginTop="31dp"
-        android:fontFamily="sans-serif"
-        android:textAllCaps="false"
-        android:textAlignment="center"
-        android:layout_below="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_alignEnd="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,4 +42,17 @@
         android:textSize="36sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Login"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginBtn"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/editText2"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_alignEnd="@+id/editText2" />
 </RelativeLayout>
