@@ -24,6 +24,7 @@
 
     <Button
         android:text="Login"
+        android:onClick="testFunctie"
         android:layout_height="wrap_content"
         android:id="@+id/button"
         android:layout_marginTop="31dp"
