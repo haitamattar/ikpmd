@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,14 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.school.haitamelattar.freeob.AdvertsActivity">
 
-    <Button
-        android:text="Get all adverts"
-        android:layout_height="wrap_content"
-        android:id="@+id/getAdverts"
-        android:layout_marginTop="31dp"
-        android:fontFamily="sans-serif"
-        android:textAllCaps="false"
-        android:textAlignment="center"
-        android:layout_width="match_parent"/>
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/advertsListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
