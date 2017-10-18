@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navAdverts"
+        android:title="Adverts"/>
+    <item android:id="@+id/navLeuke"
+        android:title="Leuke dingen"/>
+    <item android:id="@+id/navProfile"
+        android:title="Profile"/>
+    <item android:id="@+id/navWeetIk"
+        android:title="Weetjes"/>
+
+</menu>

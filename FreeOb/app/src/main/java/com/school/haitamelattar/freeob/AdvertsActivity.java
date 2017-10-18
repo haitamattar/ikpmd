@@ -1,10 +1,12 @@
 package com.school.haitamelattar.freeob;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -45,6 +47,22 @@ public class AdvertsActivity extends AppCompatActivity {
                 AdvertsAdapter adapter = new AdvertsAdapter(AdvertsActivity.this, adverts);
 
                 advertsListView.setAdapter(adapter);
+
+                // Show the content of the ListView item after its clicked
+                advertsListView.setOnItemClickListener(new OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                        Advert advert = adverts[i];
+
+                        Intent detailIntent = new Intent(AdvertsActivity.this,
+                                AdvertDetailActivity.class);
+                        detailIntent.putExtra("Advert", advert);
+
+                        startActivity(detailIntent);
+                    }
+
+                });
             }
         }, new Response.ErrorListener() {
             @Override
