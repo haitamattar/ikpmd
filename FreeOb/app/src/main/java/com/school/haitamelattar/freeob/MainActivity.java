@@ -35,17 +35,26 @@ public class MainActivity extends AppCompatActivity {
     Button loginBtn;
     EditText emailLogin, passwordLogin;
     RequestQueue requestQueue;
+    public boolean hasAccount = false;
     public static final String LOGIN_TOKEN = "loginToken";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        // Check if user has an account, if so go to all adverts activity
+        SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+        String token = settings.getString("loginToken", "");
+        String email = settings.getString("email", "");
+        verifyToken(token, email, requestQueue);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
         // Post params to be sent to the server
 
         emailLogin = (EditText) findViewById(R.id.editEmailText);
@@ -68,20 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart()
-    {
-        // TODO Auto-generated method stub
-        super.onStart();
-        SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
-        String token = settings.getString("loginToken", "");
-        String email = settings.getString("email", "");
-
-        Log.d("OPENTO: " , token + " OPEN ");
-        verifyToken(token, email, requestQueue);
-    }
-
-
     public void getCurrentUser(String username, String password, RequestQueue requestQueue) {
         String url = "http://192.168.1.36:8888/auth";
         // Post params to be sent to the server
@@ -92,24 +87,18 @@ public class MainActivity extends AppCompatActivity {
         JsonObjectRequest request_json = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-//                Log.d("Resp: ", response.toString() + " JSONNNN");
-//                Log.d("SHIIEIIEIT", "SODJSIFHIASHF");
                 try {
                     Gson gson = new Gson();
                     User user = gson.fromJson(String.valueOf(response), User.class);
                     currentUser = user;
-                    Log.d("CURUSER", currentUser.getAuthToken() + " - " + currentUser.getEmail() + " - " + currentUser.getId());
+//                    Log.d("CURUSER", currentUser.getAuthToken() + " - " + currentUser.getEmail() + " - " + currentUser.getId());
                     SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
                     settings.edit().putString("loginToken", currentUser.getAuthToken()).commit();
                     settings.edit().putString("email", currentUser.getEmail()).commit();
-
-
-//                    String token = settings.getString("loginToken", "");
-//                    Log.d("TOKEN: " , token + " - TOK");
-
-
+                    Intent advertsIntent = new Intent(MainActivity.this, AdvertsActivity.class);
+                    startActivity(advertsIntent);
                 } catch (Exception e) {
-                    Log.d("Fout kan username ligt ", "Std");
+//                    Log.d("Fout kan username ligt ", e + "Std");
                 }
 
             }
@@ -158,11 +147,14 @@ public class MainActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     User user = gson.fromJson(String.valueOf(response), User.class);
                     currentUser = user;
-                    Log.d("Tok USER", currentUser.getAuthToken() + " - " + currentUser.getEmail() + " - " + currentUser.getId());
                     Intent advertsIntent = new Intent(MainActivity.this, AdvertsActivity.class);
                     startActivity(advertsIntent);
                 } catch (Exception e) {
-                    Log.d("GOEIE", e + " ");
+                    // Log.d("exc", e + " ");
+                    // DELETE invalid token just to make shure
+                    SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+                    settings.edit().remove("loginToken").commit();
+                    settings.edit().remove("email").commit();
                 }
 
             }
@@ -174,7 +166,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("Error: \n\n", error.toString());
-                // Show alert box after wrong creditentials or other errors
+                // DELETE invalid token just to make shure
+                SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+                settings.edit().remove("loginToken").commit();
+                settings.edit().remove("email").commit();
 
 
             }

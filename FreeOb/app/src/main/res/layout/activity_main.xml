@@ -41,7 +41,8 @@
         android:id="@+id/textView"
         android:textSize="36sp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif" />
 
     <Button
         android:text="Login"
