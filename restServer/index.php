@@ -83,14 +83,18 @@ function checkToken($db){
 	
 	$email = $postBody->email;
 	$authToken = sha1($postBody->authToken);
+	$authTokenInserted = $postBody->authToken;
 	
 	if($db->query('SELECT email FROM user WHERE email = :email', array(':email'=>$email))) {
-		header("Content-type:application/json");
-		echo '{ "User" : "'.$email.'", ';
+		$user_id = $db->query('SELECT id, email FROM user WHERE email=:email', array(':email'=>$email))[0];
 		if($db->query('SELECT token FROM login_tokens WHERE token = :token', array('token'=>$authToken))) {
+			header("Content-type:application/json");
+			echo '{ "User_id" : "'.$user_id['id'].'", ';
+			echo '  "Email" : "'.$user_id['email'].'", ';
+			echo '  "AuthToken" : "'.$authTokenInserted.'", ';
 			echo ' "TokenStatus" : "true" }';
 		} else {
-			echo ' "TokenStatus" : "false" }';
+			http_response_code(401);
 		}
 	}
 }

@@ -38,8 +38,6 @@ public class AdvertsActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(getUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("CODE", response);
-
                 GsonBuilder gsonBuilder = new GsonBuilder();
                 Gson gson = gsonBuilder.create();
                 final Advert[] adverts = gson.fromJson(response, Advert[].class);
