@@ -1,6 +1,5 @@
 package com.school.haitamelattar.freeob.model;
 
-import static android.R.attr.name;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

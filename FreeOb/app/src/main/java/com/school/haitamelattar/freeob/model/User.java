@@ -3,8 +3,6 @@ package com.school.haitamelattar.freeob.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import static android.R.attr.id;
-
 /**
  * Created by haitamelattar on 07-10-17.
  */
