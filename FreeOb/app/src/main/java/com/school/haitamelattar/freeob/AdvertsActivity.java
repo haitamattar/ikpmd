@@ -26,7 +26,7 @@ public class AdvertsActivity extends AppCompatActivity {
 
     private ListView advertsListView;
     private RequestQueue requestQueue;
-    private final String getUrl = "http://192.168.1.233:8888/adverts";
+    private final String getUrl = "http://192.168.1.36:8888/adverts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +71,12 @@ public class AdvertsActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do nothing, because this is the homescreen after a login
+        return;
     }
 
 }
