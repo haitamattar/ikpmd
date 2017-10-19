@@ -1,9 +1,12 @@
 package com.school.haitamelattar.freeob;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -26,13 +29,22 @@ public class AdvertsActivity extends AppCompatActivity {
 
     private ListView advertsListView;
     private RequestQueue requestQueue;
-    private final String getUrl = "http://192.168.1.36:8888/adverts";
+    private final String getUrl = "http://192.168.1.233:8888/adverts";
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adverts);
-        final String[] test = new String[5];
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         advertsListView = (ListView)findViewById(R.id.advertsListView);
         StringRequest request = new StringRequest(getUrl, new Response.Listener<String>() {
@@ -79,4 +91,10 @@ public class AdvertsActivity extends AppCompatActivity {
         return;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(drawerToggle.onOptionsItemSelected(item)) return true;
+
+        return super.onOptionsItemSelected(item);
+    }
 }
