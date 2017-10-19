@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void getCurrentUser(String username, String password, RequestQueue requestQueue) {
