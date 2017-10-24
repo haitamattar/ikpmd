@@ -15,7 +15,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/freeobicon"
+        app:srcCompat="@drawable/freeobico"
         android:id="@+id/imageView"
         android:layout_marginTop="91dp"
         android:layout_alignParentTop="true"

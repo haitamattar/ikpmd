@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
@@ -54,11 +55,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
-
         // Post params to be sent to the server
-
         emailLogin = (EditText) findViewById(R.id.editEmailText);
         passwordLogin = (EditText) findViewById(R.id.editPassword);
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "font/AvenirNextLTPro-Regular.ttf");
+        loginBtn.setTypeface(typeface);
+        emailLogin.setTypeface(typeface);
+        passwordLogin.setTypeface(typeface);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getCurrentUser(String username, String password, RequestQueue requestQueue) {
-        String url = "http://192.168.1.36:8888/auth";
+        String url = "http://school.haitamattar.com/auth";
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("email", username);
@@ -129,10 +133,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        // Do nothing, because this is the homescreen after a login
+        return;
+    }
+
 
     // Verify token
     public void verifyToken(String token, String email, RequestQueue requestQueue) {
-        String url = "http://192.168.1.36:8888/tokenCheck";
+        String url = "http://school.haitamattar.com/tokenCheck";
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("email", email);

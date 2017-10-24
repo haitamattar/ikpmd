@@ -52,7 +52,7 @@ public class SplashScreen extends AppCompatActivity {
 
     // Verify token
     public void verifyToken(String token, String email, RequestQueue requestQueue) {
-        String url = "http://192.168.1.36:8888/tokenCheck";
+        String url = "http://school.haitamattar.com/tokenCheck";
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("email", email);
