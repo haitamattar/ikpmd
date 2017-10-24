@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getCurrentUser(String username, String password, RequestQueue requestQueue) {
-        String url = "http://192.168.1.36:8888/auth";
+        String url = "http://192.168.1.233:8888/auth";
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("email", username);
@@ -132,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Verify token
     public void verifyToken(String token, String email, RequestQueue requestQueue) {
-        String url = "http://192.168.1.36:8888/tokenCheck";
+        String url = "http://192.168.1.233:8888/tokenCheck";
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("email", email);

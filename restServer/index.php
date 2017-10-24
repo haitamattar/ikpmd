@@ -28,6 +28,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 	removeLoginToken($db);
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "tokenCheck"){ // Check token
 	checkToken($db);
+} else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "addAdvert"){ // Add advert
+	if(checkRequestToken($db)){
+		addAdvert($db);
+	} else {
+		http_response_code(401);
+		die();
+	}
 } else {
 	http_response_code(405);
 }
@@ -76,6 +83,23 @@ function removeLoginToken($db){
 	}
 }
 
+
+// Add an advert
+function addAdvert($db){
+	$postBody = file_get_contents("php://input");
+	$postBody = json_decode($postBody);
+
+	$name = $postBody->advert_name;
+	$descr = $postBody->description;
+	$category_id = $postBody->category;
+	$user_id = $db->query('SELECT id FROM user WHERE email=:email', array(':email'=>$postBody->email))[0]['id'];
+
+	$db->query( "INSERT INTO adverts (user_id, advert_name, advert_description, advert_category_id)".
+				"VALUES (:uid, :an, :ad, :acid)",
+				array(':uid'=>$user_id, ':an'=>$name, ':ad'=>$descr, ':acid'=>$category_id));
+	echo "ISH ES GULEKT";
+}
+
 // check token
 function checkToken($db){
 	$postBody = file_get_contents("php://input");
@@ -95,6 +119,25 @@ function checkToken($db){
 			echo ' "TokenStatus" : "true" }';
 		} else {
 			http_response_code(401);
+		}
+	}
+}
+
+// Check token for certain requests
+function checkRequestToken($db){
+	$postBody = file_get_contents("php://input");
+	$postBody = json_decode($postBody);
+	
+	$email = $postBody->email;
+	$authToken = sha1($postBody->authToken);
+	$authTokenInserted = $postBody->authToken;
+
+	if($db->query('SELECT email FROM user WHERE email = :email', array(':email'=>$email))) {
+		$user_id = $db->query('SELECT id, email FROM user WHERE email=:email', array(':email'=>$email))[0];
+		if($db->query('SELECT token FROM login_tokens WHERE token = :token', array('token'=>$authToken))) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }
