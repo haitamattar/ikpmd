@@ -21,6 +21,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 	}	
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "auth") { // POST DATA
 	login($db);
+} else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "register") { // POST DATA
+	registerUser($db);
 } else if($_SERVER['REQUEST_METHOD'] == "DELETE" && $_GET['url'] == "auth"){ // Remove login token
 	removeLoginToken($db);
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "tokenCheck"){ // Check token
@@ -55,7 +57,6 @@ function login($db){
 			http_response_code(401);
 		}
 	} else {
-		//echo password_hash("goeieww01", PASSWORD_BCRYPT); // create passwd
 		http_response_code(401);
 	}
 }
@@ -92,6 +93,41 @@ function checkToken($db){
 			echo ' "TokenStatus" : "true" }';
 		} else {
 			http_response_code(401);
+		}
+	}
+}
+
+function registerUser($db){
+	$postBody = file_get_contents("php://input");
+	$postBody = json_decode($postBody);
+	$name = $postBody->name;
+	$email = $postBody->email;
+	$password = password_hash($postBody->password, PASSWORD_BCRYPT);
+	
+	try {
+	$db->query("INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES (NULL, :name, :email, :password)", 
+	           array(':name'=>$name, "email"=>$email, "password"=>$password));
+	
+	$csStrong = true;
+	$token = bin2hex(openssl_random_pseudo_bytes(64, $csStrong));
+	$user_id = $db->query('SELECT id, email FROM user WHERE id = id', array(':id'=>$db->lastInsertId()))[0];
+	
+	$db->query('INSERT INTO login_tokens VALUES (NULL, :token, :user_id)',
+	                                            array(':token'=>sha1($token), ':user_id'=>$user_id['id']));
+		
+	header("Content-type:application/json");
+	echo '{  "User_id": "'.$user_id['id'].'", "Email": "'.$user_id['email'].'","AuthToken": "'.$token.'" }';
+	
+	}
+	catch(PDOException $e) {
+		if ($e->errorInfo[1] == 1062) {
+			// echo "email bestaat al";
+			http_response_code(400);
+			header("Content-type:application/json");
+			echo '{ "Error" : "Email already exists" }';
+		} else {
+		http_response_code(400);
+		die();
 		}
 	}
 }

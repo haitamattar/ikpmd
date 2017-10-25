@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,12 +28,14 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import static android.R.attr.typeface;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    public Advert[] adverts;
     public User currentUser;
     Button loginBtn;
+    TextView singUp;
     EditText emailLogin, passwordLogin;
     RequestQueue requestQueue;
     public boolean hasAccount = false;
@@ -54,10 +56,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loginBtn = (Button) findViewById(R.id.loginBtn);
+        loginBtn = (Button) findViewById(R.id.singUpBtn);
         // Post params to be sent to the server
-        emailLogin = (EditText) findViewById(R.id.editEmailText);
+        emailLogin = (EditText) findViewById(R.id.editNameText);
         passwordLogin = (EditText) findViewById(R.id.editPassword);
+        singUp = (TextView) findViewById(R.id.singUpBtn);
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "font/AvenirNextLTPro-Regular.ttf");
         loginBtn.setTypeface(typeface);
@@ -78,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void onClickSingUp(View v) {
+        Intent singUpActivity = new Intent(MainActivity.this, SingUp.class);
+        startActivity(singUpActivity);
     }
 
     public void getCurrentUser(String username, String password, RequestQueue requestQueue) {
