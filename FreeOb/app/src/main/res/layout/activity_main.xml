@@ -19,20 +19,21 @@
         android:ems="10"
         android:backgroundTint="@color/white"
         android:id="@+id/editPassword"
-        android:hint="password"
+        android:hint="Password"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
         android:layout_marginTop="29dp"
         android:textSize="18sp"
-        android:layout_below="@+id/editEmailText"
-        android:layout_alignStart="@+id/editEmailText" />
+        android:theme="@style/EditTextTheme"
+        android:layout_below="@+id/editNameText"
+        android:layout_alignStart="@+id/editNameText" />
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/freeobico"
         android:id="@+id/imageView2"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -41,28 +42,42 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editEmailText"
-        android:hint="email"
+        android:id="@+id/editNameText"
+        android:theme="@style/EditTextTheme"
+        android:hint="Email"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
         android:backgroundTint="@color/white"
         android:textSize="18sp"
+        android:layout_marginTop="81dp"
         android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="108dp" />
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="Dont have an account? Sing up"
+        android:onClick="onClickSingUp"
+        android:clickable="true"
+        android:id="@+id/textView"
+        android:textColor="@android:color/darker_gray"
+        android:layout_width="500dp"
+        android:textAlignment="center"
+        android:layout_height="40dp"
+        android:layout_marginBottom="13dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:text="Login"
+        android:text="Sing in"
         android:layout_height="wrap_content"
-        android:id="@+id/loginBtn"
+        android:id="@+id/singUpBtn"
         android:textAllCaps="false"
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:textColor="@color/white"
         android:background="@drawable/roundbutton"
         android:textSize="18sp"
-        android:layout_marginTop="62dp"
-        android:layout_below="@+id/editPassword"
+        android:layout_marginBottom="17dp"
+        android:layout_above="@+id/textView"
         android:layout_alignEnd="@+id/editPassword"
         android:layout_alignStart="@+id/editPassword" />
 

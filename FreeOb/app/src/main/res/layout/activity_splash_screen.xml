@@ -13,11 +13,23 @@
     tools:context="com.school.haitamelattar.freeob.SplashScreen">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/freeobico"
         android:id="@+id/imageView"
         android:layout_marginTop="91dp"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="A mans trash is another man's treasure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:id="@+id/textView2"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

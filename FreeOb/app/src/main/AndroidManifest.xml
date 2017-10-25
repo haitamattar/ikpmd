@@ -37,6 +37,8 @@
         <activity
             android:name=".AddAdvertActivity"
             android:label="Advertentie toevoegen" />
+        <activity android:name=".SingUp"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>
