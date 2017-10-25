@@ -1,18 +1,14 @@
 package com.school.haitamelattar.freeob;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
-public class SettingActivity extends AppCompatActivity {
+public class AddAdvertActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -21,16 +17,16 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_add_advert);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerSetting);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerAddAdvert);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.navigationSetting);
-        navigationView.setCheckedItem(R.id.navSettings);
+        navigationView = (NavigationView) findViewById(R.id.navigationAddAdvert);
+        navigationView.setCheckedItem(R.id.navAddAdvert);
         setupDrawerContent(navigationView);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -44,7 +40,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     /**
-     * Handles the navigation menu Items on SettingActivity
+     * Handles the navigation menu Items on AddAdvertActivity
      * @param navigationView The navigation menu view
      */
     private void setupDrawerContent(NavigationView navigationView) {
@@ -58,19 +54,19 @@ public class SettingActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()){
                             case R.id.navAdverts:
-                                intent = new Intent(SettingActivity.this, AdvertsActivity.class);
+                                intent = new Intent(AddAdvertActivity.this, AdvertsActivity.class);
                                 startActivity(intent);
                                 break;
                             case R.id.navAddAdvert:
-                                intent = new Intent(SettingActivity.this, AddAdvertActivity.class);
-                                startActivity(intent);
-                                break;
+                                return false;
                             case R.id.navProfile:
-                                intent = new Intent(SettingActivity.this, ProfileActivity.class);
+                                intent = new Intent(AddAdvertActivity.this, ProfileActivity.class);
                                 startActivity(intent);
                                 break;
                             case R.id.navSettings:
-                                return false;
+                                intent = new Intent(AddAdvertActivity.this, SettingActivity.class);
+                                startActivity(intent);
+                                break;
                         }
 
                         return true;

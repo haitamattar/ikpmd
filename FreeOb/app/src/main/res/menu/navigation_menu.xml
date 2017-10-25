@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/navAdverts"
-        android:title="Adverts"/>
-    <item android:id="@+id/navLeuke"
-        android:title="Leuke dingen"/>
-    <item android:id="@+id/navProfile"
-        android:title="Profile"/>
-    <item android:id="@+id/navWeetIk"
-        android:title="Weetjes"/>
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/navAdverts"
+            android:checked="true"
+            android:icon="@mipmap/ic_treasure_chest_black"
+            android:title="Advertenties"/>
+        <item android:id="@+id/navAddAdvert"
+            android:icon="@mipmap/ic_shape_plus_black"
+            android:title="Advertentie plaatsen"/>
+        <item android:id="@+id/navProfile"
+            android:icon="@mipmap/ic_gnome_black"
+            android:title="Mijn profile"/>
+        <item android:id="@+id/navSettings"
+            android:icon="@mipmap/ic_settings_black"
+            android:title="Instellingen"/>
+    </group>
 
 </menu>

@@ -24,8 +24,6 @@ import com.google.gson.GsonBuilder;
 import com.school.haitamelattar.freeob.model.Advert;
 import com.school.haitamelattar.freeob.view.AdvertsAdapter;
 
-import java.lang.reflect.Array;
-
 public class AdvertsActivity extends AppCompatActivity {
 
     private ListView advertsListView;
@@ -33,6 +31,7 @@ public class AdvertsActivity extends AppCompatActivity {
     private final String getUrl = "http://192.168.1.233:8888/adverts";
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,9 @@ public class AdvertsActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        setupDrawerContent((NavigationView) findViewById(R.id.navigation));
+        navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView.setCheckedItem(R.id.navAdverts);
+        setupDrawerContent(navigationView);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -101,6 +102,10 @@ public class AdvertsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Handles the navigation menu Items on AdvertsActivity
+     * @param navigationView The navigation menu view
+     */
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -108,6 +113,25 @@ public class AdvertsActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         drawerLayout.closeDrawers();
+                        Intent intent;
+
+                        switch (menuItem.getItemId()){
+                            case R.id.navAdverts:
+                                return false;
+                            case R.id.navAddAdvert:
+                                intent = new Intent(AdvertsActivity.this, AddAdvertActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.navProfile:
+                                intent = new Intent(AdvertsActivity.this, ProfileActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.navSettings:
+                                intent = new Intent(AdvertsActivity.this, SettingActivity.class);
+                                startActivity(intent);
+                                break;
+                        }
+
                         return true;
                     }
                 }

@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 require_once "DB.php";
 
 // Quick en dirty php rest api
@@ -97,7 +94,7 @@ function addAdvert($db){
 	$db->query( "INSERT INTO adverts (user_id, advert_name, advert_description, advert_category_id)".
 				"VALUES (:uid, :an, :ad, :acid)",
 				array(':uid'=>$user_id, ':an'=>$name, ':ad'=>$descr, ':acid'=>$category_id));
-	echo "ISH ES GULEKT";
+	echo '{ "Status": "Success" }';
 }
 
 // check token

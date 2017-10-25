@@ -10,16 +10,33 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen">
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdvertsActivity" />
-        <activity android:name=".AdvertDetailActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity
+            android:name=".AdvertsActivity"
+            android:label="Advertenties" />
+        <activity
+            android:name=".AdvertDetailActivity"
+            android:label="Advertentie" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".SettingActivity"
+            android:label="Instellingen" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Mijn profile" />
+        <activity
+            android:name=".AddAdvertActivity"
+            android:label="Advertentie toevoegen" />
     </application>
 
 </manifest>
