@@ -54,7 +54,8 @@ public class ProfileActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         String token = settings.getString("loginToken", "");
         String email = settings.getString("email", "");
-        getUserData(token, email, 1, requestQueue);
+        String userid = settings.getString("id", "");
+        getUserData(token, email, userid, requestQueue);
 
         // Set data into page
         name = (TextView) findViewById(R.id.textViewName);
@@ -128,13 +129,15 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    public void getUserData(String token, String email, int userId, RequestQueue requestQueue) {
+    public void getUserData(String token, String email, String userId, RequestQueue requestQueue) {
         String url = "http://school.haitamattar.com/userProfile";
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("email", email);
         params.put("authToken", token);
-        params.put("userId", String.valueOf(userId));
+        params.put("userId", userId);
+
+        Log.d("userd", userId);
 
         JsonObjectRequest request_json = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
@@ -145,7 +148,6 @@ public class ProfileActivity extends AppCompatActivity {
                     userInfo = user;
                     name.setText(user.getName());
                     bio.setText(user.getBio());
-                    Log.d("USER JCACKSA: ", user.getName() + " : " + user.getBio());
 
                 } catch (Exception e) {
                     Log.d("Foutie ", e + "Std");
@@ -162,7 +164,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("Errordfasdf : ", error.toString());
                 // Show alert box after wrong creditentials or other errors
                 AlertDialog.Builder wrongCredit = new AlertDialog.Builder(ProfileActivity.this);
-                wrongCredit.setMessage("Email already exists");
+                wrongCredit.setMessage("Can't get user details");
 
                 wrongCredit.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
                     @Override

@@ -174,7 +174,7 @@ function registerUser($db){
 	
 	$csStrong = true;
 	$token = bin2hex(openssl_random_pseudo_bytes(64, $csStrong));
-	$user_id = $db->query('SELECT id, email FROM user WHERE id = id', array(':id'=>$db->lastInsertId()))[0];
+	$user_id = $db->query('SELECT id, email FROM user WHERE id = :id', array(':id'=>$db->lastInsertId()))[0];
 	
 	$db->query('INSERT INTO login_tokens VALUES (NULL, :token, :user_id)',
 	                                            array(':token'=>sha1($token), ':user_id'=>$user_id['id']));
