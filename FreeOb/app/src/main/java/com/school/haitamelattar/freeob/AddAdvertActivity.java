@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.school.haitamelattar.freeob.model.Advert;
 import com.school.haitamelattar.freeob.model.Category;
 import com.school.haitamelattar.freeob.view.CategoryAdapter;
 
@@ -46,8 +47,8 @@ public class AddAdvertActivity extends AppCompatActivity {
     private Button saveBtn;
     private EditText titleText, descText;
     private CategoryAdapter adapter;
-    private final String getCategoryUrl = "http://192.168.1.233:8888/categories";
-    private final String postNewAdvert = "http://192.168.1.233:8888/addAdvert";
+    private final String getCategoryUrl = "http://school.haitamattar.com/categories";
+    private final String postNewAdvert = "http://school.haitamattar.com/addAdvert";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,6 @@ public class AddAdvertActivity extends AppCompatActivity {
                 final ArrayList<Category> categories = gson.fromJson(response,
                         new TypeToken<List<Category>>(){}.getType());
 
-                Log.d("ADVERT", categories.get(0).toString());
                 adapter = new CategoryAdapter(AddAdvertActivity.this,
                         R.layout.content_category_spinner, R.id.spinnerItem, categories);
 
@@ -98,6 +98,7 @@ public class AddAdvertActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
 
+        // Save advert
         saveBtn.setOnClickListener((new View.OnClickListener() {
 
 
@@ -115,21 +116,24 @@ public class AddAdvertActivity extends AppCompatActivity {
 //                } else if ( == 0) {
 //                    adapter.setError(selectedView, "Choose a category");
                 } else {
+                    Category cat = (Category) categorySpinner.getSelectedItem();
                     addAdvert(
                             titleText.getText().toString(),
                             descText.getText().toString(),
-                            "9"
-                            //selectedView.getTag().toString()
+                            cat.getId().toString(),
+                            cat.getName()
                     );
                 }
             }
         }));
     }
 
-    public void addAdvert(String title, String description, String categoryId) {
+    public void addAdvert(final String title, final String description, String categoryId, final String categoryName) {
         SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         String token = settings.getString("loginToken", "");
         String email = settings.getString("email", "");
+        final String userId = settings.getString("id", "");
+
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("email", email);
@@ -142,7 +146,14 @@ public class AddAdvertActivity extends AppCompatActivity {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, postNewAdvert, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                GsonBuilder gsonBuilder = new GsonBuilder();
+                Advert currentAdvert = new Advert("0", userId, title, description, "", categoryName);
+
+                Intent detailIntent = new Intent(AddAdvertActivity.this,
+                        AdvertDetailActivity.class);
+                detailIntent.putExtra("Advert", currentAdvert);
+
+                startActivity(detailIntent);
+
             }
         }, new Response.ErrorListener() {
             @Override

@@ -51,6 +51,7 @@ public class SettingActivity extends AppCompatActivity {
                 SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
                 settings.edit().remove("loginToken").commit();
                 settings.edit().remove("email").commit();
+                settings.edit().remove("id").commit();
                 // Go to login page
                 Intent home = new Intent(SettingActivity.this, MainActivity.class);
                 startActivity(home);

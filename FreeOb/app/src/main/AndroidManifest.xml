@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/iconapp"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -21,23 +21,31 @@
         </activity>
         <activity
             android:name=".AdvertsActivity"
-            android:label="Advertenties" />
+            android:screenOrientation="portrait"
+            android:label="Adverts" />
         <activity
             android:name=".AdvertDetailActivity"
-            android:label="Advertentie" />
+            android:screenOrientation="portrait"
+            android:label="Advert" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".SettingActivity"
-            android:label="Instellingen" />
+            android:screenOrientation="portrait"
+            android:label="Settings" />
         <activity
             android:name=".AddAdvertActivity"
-            android:label="Advertentie toevoegen" />
+            android:screenOrientation="portrait"
+            android:label="Publish advert" />
         <activity
             android:name=".SingUp"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

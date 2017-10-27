@@ -22,14 +22,15 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="A mans trash is another man's treasure"
+        android:text="One Man's Trash Is Another Man's Treasure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="34dp"
         android:id="@+id/textView2"
         android:fontFamily="sans-serif"
         android:textColor="@color/white"
         android:textSize="15sp"
+        android:textAlignment="center"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

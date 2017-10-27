@@ -8,58 +8,88 @@
     android:fitsSystemWindows="true">
 
     <!-- The main content view -->
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_add_advert"
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:layout_height="match_parent">
 
-        <Button
-            android:layout_height="wrap_content"
-            android:id="@+id/AddAdvertNextStep"
-            android:textAllCaps="false"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:textColor="@color/white"
-            android:background="@drawable/roundbutton"
-            android:textSize="18sp"
-            android:layout_marginBottom="20dp"
-            android:text="Next Step"
-            android:layout_alignParentBottom="true"
-            android:layout_alignEnd="@+id/addAdvertTitleText"
-            android:layout_alignStart="@+id/addAdvertTitleText" />
-
-        <Button
-            android:layout_height="wrap_content"
-            android:id="@+id/AddPictureBtn"
-            android:textAllCaps="false"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:textColor="@color/white"
-            android:background="@drawable/roundbutton"
-            android:textSize="18sp"
-            android:text="Upload Photo"
-            android:layout_marginTop="22dp"
-            android:layout_below="@+id/addAvertTextView"
-            android:layout_alignEnd="@+id/addAdvertTitleText"
-            android:layout_alignStart="@+id/addAdvertTitleText" />
+        <Spinner
+            android:layout_height="51dp"
+            android:inputType="textEmailAddress"
+            android:theme="@style/DefaultTextFieldTheme"
+            android:ems="10"
+            android:id="@+id/addAdvertCategorySpin"
+            android:layout_above="@+id/addAdvertDescText"
+            android:layout_alignStart="@+id/addAdvertDescText"
+            android:layout_alignEnd="@+id/addAdvertDescText"
+            android:layout_width="288dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/addAdvertDescText"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintHorizontal_bias="0.52" />
 
         <TextView
             android:text="Make someone happy with your treasure."
-            android:layout_width="wrap_content"
+            android:layout_width="197dp"
             android:id="@+id/addAvertTextView"
             android:textAlignment="center"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:textSize="18sp" />
+            android:layout_height="52dp"
+            android:textSize="16sp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/AddPictureBtn"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/AddPictureBtn"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:layout_width="195dp"
+            android:textColor="@color/white"
+            android:background="@drawable/roundbutton"
+            android:textSize="15sp"
+            android:text="Upload Photo"
+            android:layout_below="@+id/addAvertTextView"
+            android:layout_alignStart="@+id/addAvertTextView"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/addAdvertTitleText"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <Button
+            android:id="@+id/AddAdvertNextStep"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:layout_width="202dp"
+            android:textColor="@color/white"
+            android:background="@drawable/roundbutton"
+            android:textSize="16sp"
+            android:text="Publish Advert"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/addAdvertTitleText"
+            android:layout_alignStart="@+id/addAdvertTitleText"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="24dp"
+            android:layout_height="48dp" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:ems="10"
             android:id="@+id/addAdvertTitleText"
             android:hint="Title"
@@ -68,43 +98,33 @@
             android:theme="@style/DefaultTextFieldTheme"
             android:layout_below="@+id/AddPictureBtn"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="29dp" />
+            android:layout_width="287dp"
+            app:layout_constraintBottom_toTopOf="@+id/addAdvertCategorySpin"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.52" />
 
         <EditText
             android:id="@+id/addAdvertDescText"
-            android:layout_width="wrap_content"
-            android:layout_height="95dp"
+            android:layout_width="289dp"
+            android:layout_height="125dp"
             android:layout_above="@+id/AddAdvertNextStep"
-            android:layout_marginBottom="22dp"
             android:ems="10"
             android:hint="Description"
             android:inputType="textMultiLine"
-            android:textSize="18sp"
             android:theme="@style/DefaultTextFieldTheme"
             android:layout_alignStart="@+id/addAdvertTitleText"
-            android:layout_alignEnd="@+id/AddAdvertNextStep" />
-
-        <Spinner
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:theme="@style/DefaultTextFieldTheme"
-            android:ems="10"
-            android:id="@+id/addAdvertCategorySpin"
-            android:layout_above="@+id/addAdvertDescText"
-            android:layout_alignStart="@+id/addAdvertDescText"
-            android:layout_marginBottom="7dp"
-            android:layout_alignEnd="@+id/addAdvertDescText" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:textSize="14sp"
-            android:layout_above="@+id/addAdvertCategorySpin"
-            android:layout_alignStart="@+id/addAdvertCategorySpin" />
-    </RelativeLayout>
+            android:layout_alignEnd="@+id/AddAdvertNextStep"
+            app:layout_constraintBottom_toTopOf="@+id/AddAdvertNextStep"
+            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
     <!-- The navigation drawer -->
     <android.support.design.widget.NavigationView

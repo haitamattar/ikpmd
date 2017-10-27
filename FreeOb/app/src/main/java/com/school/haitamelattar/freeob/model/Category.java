@@ -9,9 +9,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Category {
 
-    @SerializedName("category_id")
+    @SerializedName("id")
     @Expose
     private Long id = null;
+
     @SerializedName("category_name")
     @Expose
     private String name;
@@ -23,6 +24,10 @@ public class Category {
 
     public Long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setId(Long id) {

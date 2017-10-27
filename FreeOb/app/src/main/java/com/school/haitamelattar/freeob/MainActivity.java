@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
                     settings.edit().putString("loginToken", currentUser.getAuthToken()).commit();
                     settings.edit().putString("email", currentUser.getEmail()).commit();
+                    settings.edit().putString("id", currentUser.getId().toString()).commit();
                     Intent advertsIntent = new Intent(MainActivity.this, AdvertsActivity.class);
                     startActivity(advertsIntent);
                 } catch (Exception e) {
@@ -174,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
                     settings.edit().remove("loginToken").commit();
                     settings.edit().remove("email").commit();
+                    settings.edit().remove("id").commit();
                 }
 
             }
@@ -189,8 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences settings = getSharedPreferences("PREFS", Context.MODE_PRIVATE);
                 settings.edit().remove("loginToken").commit();
                 settings.edit().remove("email").commit();
-
-
+                settings.edit().remove("id").commit();
             }
         });
 

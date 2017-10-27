@@ -4,17 +4,17 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/navAdverts"
             android:checked="true"
-            android:icon="@mipmap/ic_treasure_chest_black"
-            android:title="Advertenties"/>
+            android:icon="@drawable/ic_treasure_1"
+            android:title="Adverts"/>
         <item android:id="@+id/navAddAdvert"
-            android:icon="@mipmap/ic_shape_plus_black"
-            android:title="Advertentie plaatsen"/>
+            android:icon="@drawable/ic_scroll"
+            android:title="Publish advert"/>
         <item android:id="@+id/navProfile"
-            android:icon="@mipmap/ic_gnome_black"
-            android:title="Mijn profile"/>
+            android:icon="@drawable/ic_pirate_1"
+            android:title="My profile"/>
         <item android:id="@+id/navSettings"
-            android:icon="@mipmap/ic_settings_black"
-            android:title="Instellingen"/>
+            android:icon="@drawable/ic_hook"
+            android:title="Settings"/>
     </group>
 
 </menu>
