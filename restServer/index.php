@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once "DB.php";
 
 // Quick en dirty php rest api
@@ -27,6 +29,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 	}
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "auth") { // POST DATA
 	login($db);
+} else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "userProfile") { // POST DATA
+	ownProfileInformation($db);
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "register") { // POST DATA
 	registerUser($db);
 } else if($_SERVER['REQUEST_METHOD'] == "DELETE" && $_GET['url'] == "auth"){ // Remove login token
@@ -45,8 +49,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 }
 
 
-
 // Login en maak auth token aan in db return token in json
+// IN: db connection
 function login($db){
 	$postBody = file_get_contents("php://input");
 	$postBody = json_decode($postBody);
@@ -74,7 +78,9 @@ function login($db){
 	}
 }
 
+
 // Delete login token
+// IN: db connection
 function removeLoginToken($db){
 	$getToken = sha1($_GET['token']);
 	if(isset($_GET['token']) && $db->query("SELECT token FROM login_tokens WHERE token = :token", 
@@ -89,6 +95,7 @@ function removeLoginToken($db){
 
 
 // Add an advert
+// IN: db connection
 function addAdvert($db){
 	$postBody = file_get_contents("php://input");
 	$postBody = json_decode($postBody);
@@ -104,7 +111,9 @@ function addAdvert($db){
 	echo '{ "Status": "Success" }';
 }
 
+
 // check token
+// IN: db connection
 function checkToken($db){
 	$postBody = file_get_contents("php://input");
 	$postBody = json_decode($postBody);
@@ -127,7 +136,10 @@ function checkToken($db){
 	}
 }
 
+
 // Check token for certain requests
+// IN: db connection
+// OUT: true or false
 function checkRequestToken($db){
 	$postBody = file_get_contents("php://input");
 	$postBody = json_decode($postBody);
@@ -146,6 +158,9 @@ function checkRequestToken($db){
 	}
 }
 
+
+// Register user (create an account)
+// IN: db connection
 function registerUser($db){
 	$postBody = file_get_contents("php://input");
 	$postBody = json_decode($postBody);
@@ -175,9 +190,41 @@ function registerUser($db){
 			header("Content-type:application/json");
 			echo '{ "Error" : "Email already exists" }';
 		} else {
-		http_response_code(400);
+		http_response_code(400); // wrong credit
 		die();
 		}
+	}
+}
+
+
+//Show user profile
+function ownProfileInformation($db){
+	
+	if(checkRequestToken($db)){
+		$postBody = file_get_contents("php://input");
+		$postBody = json_decode($postBody);
+		$userId = $postBody->userId;
+		
+		if(trim($userId) == ""){
+			http_response_code(400); // wrong credit
+			die();
+		}
+		
+		$userAndAdverts["adverts"] = $db->query("SELECT `user`.`id`, `name`, `latitude`, `longitude`, `bio`,".
+		                                        " `adverts`.`id` as 'advert_id', `adverts`.`advert_name` " .
+		                                        "FROM `user` " .
+		                                        "LEFT JOIN `adverts` ON `adverts`.`user_id` = `user`.`id` " .
+		                                        "WHERE `user`.`id` = :id", array('id'=>$userId));
+		header("Content-Type: application/json");
+		$user = ["Name"=>$userAndAdverts["adverts"][0]["name"],
+		         "Bio"=>$userAndAdverts["adverts"][0]["bio"],
+		         "Lat"=>$userAndAdverts["adverts"][0]["latitude"], "Lon"=>$userAndAdverts["adverts"][0]["longitude"]];
+		
+		$userAndAdverts["User"] = $user; 
+		
+		echo json_encode($userAndAdverts);
+	} else {
+		http_response_code(401);// No access
 	}
 }
 

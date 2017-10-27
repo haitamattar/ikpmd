@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:textColor="@color/white"
         android:background="@drawable/roundbutton"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:layout_marginBottom="17dp"
         android:layout_above="@+id/textView"
         android:layout_alignEnd="@+id/editPassword"

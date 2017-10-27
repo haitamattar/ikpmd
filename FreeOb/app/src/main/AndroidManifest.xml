@@ -32,13 +32,12 @@
             android:name=".SettingActivity"
             android:label="Instellingen" />
         <activity
-            android:name=".ProfileActivity"
-            android:label="Mijn profile" />
-        <activity
             android:name=".AddAdvertActivity"
             android:label="Advertentie toevoegen" />
-        <activity android:name=".SingUp"
+        <activity
+            android:name=".SingUp"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>
