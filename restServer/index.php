@@ -18,7 +18,13 @@ if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 		header("Content-Type: application/json");
 		echo json_encode($getAdverts);
 		http_response_code(200); //standaard
-	}	
+	} else if($_GET['url'] == "categories"){
+		// Get all categories
+		$getCategories = $db->query('SELECT id, category_name FROM category_advert');
+		header("Content-Type: application/json");
+		echo json_encode($getCategories);
+		http_response_code(200); //standaard
+	}
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "auth") { // POST DATA
 	login($db);
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "register") { // POST DATA
@@ -128,7 +134,7 @@ function checkRequestToken($db){
 	
 	$email = $postBody->email;
 	$authToken = sha1($postBody->authToken);
-	$authTokenInserted = $postBody->authToken;
+	//$authTokenInserted = $postBody->authToken;
 
 	if($db->query('SELECT email FROM user WHERE email = :email', array(':email'=>$email))) {
 		$user_id = $db->query('SELECT id, email FROM user WHERE email=:email', array(':email'=>$email))[0];
