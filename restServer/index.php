@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 	if($_GET['url'] == "adverts") {
 		// Get all adverts
 		$getAdverts = $db->query('SELECT adverts.id, user_id, advert_name, advert_description, '.
-		                         'user.name as "user_name", category_advert.category_name '.
+		                         'user.name as "user_name", image, category_advert.category_name '.
 		                         'FROM adverts '.
 		                         'LEFT JOIN user ON adverts.user_id = user.id '.
 		                         'LEFT JOIN category_advert on advert_category_id = category_advert.id');
@@ -105,11 +105,13 @@ function addAdvert($db){
 	$name = $postBody->advert_name;
 	$descr = $postBody->description;
 	$category_id = $postBody->category;
+	$image = $postBody->image;
+	
 	$user_id = $db->query('SELECT id FROM user WHERE email=:email', array(':email'=>$postBody->email))[0]['id'];
 
-	$db->query( "INSERT INTO adverts (user_id, advert_name, advert_description, advert_category_id)".
-				"VALUES (:uid, :an, :ad, :acid)",
-				array(':uid'=>$user_id, ':an'=>$name, ':ad'=>$descr, ':acid'=>$category_id));
+	$db->query( "INSERT INTO adverts (user_id, advert_name, advert_description, advert_category_id, image)".
+				"VALUES (:uid, :an, :ad, :acid, :image)",
+				array(':uid'=>$user_id, ':an'=>$name, ':ad'=>$descr, ':acid'=>$category_id, 'image'=>$image));
 	echo '{ "Status": "Success" }';
 }
 
