@@ -132,6 +132,10 @@ public class SettingActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 try {
                     Log.d("Count advert VISITORS", response.toString());
+                    if(response.length() == 0){
+                        pieChart.setCenterText("Create adverts to see an overview of all" +
+                                " your visitors");
+                    }
 
                     for(int i = 0; i < response.length(); i++){
                         JSONObject jsonObj = response.getJSONObject(i);
