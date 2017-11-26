@@ -8,9 +8,7 @@ $db = new DB('127.0.0.1', "freeOb", "root", "");
 
 if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 	
-	if($_GET['url'] == "auth") {
-		
-	} else if($_GET['url'] == "adverts") {
+	if($_GET['url'] == "adverts") {
 		// Get all adverts
 		$getAdverts = $db->query('SELECT adverts.id, user_id, advert_name, advert_description, '.
 		                         'user.name as "user_name", category_advert.category_name '.
@@ -26,11 +24,15 @@ if($_SERVER['REQUEST_METHOD'] == "GET") { // GET DATA
 		header("Content-Type: application/json");
 		echo json_encode($getCategories);
 		http_response_code(200); //standaard
+	} else if($_GET['url'] == "advertUserVisitors"){
+		getVisitorsOfUserAdverts($db);
 	}
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "auth") { // POST DATA
 	login($db);
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "userProfile") { // POST DATA
 	ownProfileInformation($db);
+} else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "visitAdvert") { // POST DATA
+	visitAdvert($db);
 } else if($_SERVER['REQUEST_METHOD'] == "POST" && $_GET['url'] == "register") { // POST DATA
 	registerUser($db);
 } else if($_SERVER['REQUEST_METHOD'] == "DELETE" && $_GET['url'] == "auth"){ // Remove login token
@@ -194,6 +196,44 @@ function registerUser($db){
 		die();
 		}
 	}
+}
+
+
+// Keeps track of advert visitors
+// IN: db connection
+function visitAdvert($db){
+	$postBody = file_get_contents("php://input");
+	$postBody = json_decode($postBody);
+
+	$advertId = $postBody->advertId;
+	$userId = $postBody->userId;
+
+	$db->query("INSERT INTO visitors_adverts (user_id, advert_id) VALUES (:userId, :advertId)",
+	           array(':advertId'=>$advertId, ':userId'=>$userId));
+	echo '{ "Status": "Success" }';
+}
+
+
+// Get all advert visitors of an user
+// IN: db connection
+function getVisitorsOfUserAdverts($db){
+	// No userId parameter in url, 404 not found page
+	if(!isset($_GET['userId'])){
+		http_response_code(404);
+		die();
+	}
+	
+	$userId = $_GET['userId'];
+	
+	$getAdverts = $db->query("SELECT `advert_name`, COUNT(`advert_id`) as 'visitors' ".
+	                         "FROM adverts ".
+	                         "LEFT JOIN `visitors_adverts` on `advert_id` = `adverts`.`id` ".
+	                         "WHERE `adverts`.`user_id` = :userId ".
+	                         "GROUP BY `advert_name`", array(":userId"=>$userId));
+    
+	header("Content-Type: application/json");
+	echo json_encode($getAdverts);
+	
 }
 
 
