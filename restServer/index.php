@@ -106,7 +106,7 @@ function addAdvert($db){
 	$descr = $postBody->description;
 	$category_id = $postBody->category;
 	$image = $postBody->image;
-	
+
 	$user_id = $db->query('SELECT id FROM user WHERE email=:email', array(':email'=>$postBody->email))[0]['id'];
 
 	$db->query( "INSERT INTO adverts (user_id, advert_name, advert_description, advert_category_id, image)".

@@ -25,14 +25,18 @@ public class Advert implements Serializable {
     @SerializedName("advert_name")
     @Expose
     private String advert_name;
+    @SerializedName("image")
+    @Expose
+    private String encoded_image;
 
-    public Advert(String id, String user_id, String name, String description, String username, String categoryName) {
+    public Advert(String id, String user_id, String name, String description, String username, String categoryName, String image) {
         this.id = id;
         this.user_id = user_id;
         this.advert_name = name;
         this.advert_description = description;
         this.user_name = username;
         this.category_name = categoryName;
+        this.encoded_image = image;
     }
 
     public String getId() {
@@ -83,4 +87,7 @@ public class Advert implements Serializable {
         this.category_name = categoryName;
     }
 
+    public String getImage() {
+        return encoded_image;
+    }
 }

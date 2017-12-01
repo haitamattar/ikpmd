@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,9 +60,15 @@ public class AdvertDetailActivity extends AppCompatActivity {
 
         Advert advert = (Advert) getIntent().getSerializableExtra("Advert");
 
-        ImageView imageView = (ImageView) this.findViewById(R.id.advertDetailImage);
-        // Image for testing
-        Picasso.with(this).load("http://www.studentfiets.nl/wp-content/uploads/2015/04/herenfiets-03.jpg").into(imageView);
+        final ImageView imageView = (ImageView) this.findViewById(R.id.advertDetailImage);
+        byte[] decodedString = Base64.decode(advert.getImage(), Base64.DEFAULT);
+        final Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        imageView.post(new Runnable() {
+            @Override
+            public void run() {
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, imageView.getWidth(), imageView.getHeight(), false));
+            }
+        });
 
         TextView categoryTextView = (TextView) this.findViewById(R.id.advertDetailCategory);
         TextView titleTextView = (TextView) this.findViewById(R.id.advertDetailTitle);
@@ -129,7 +138,7 @@ public class AdvertDetailActivity extends AppCompatActivity {
 
     // Visit advert
     public void visitAdvert(String userId, String advertId, RequestQueue requestQueue) {
-        String url = "http://192.168.1.36:8888/visitAdvert";
+        String url = "http://192.168.1.235:8888/visitAdvert";
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("userId", userId);
@@ -159,6 +168,5 @@ public class AdvertDetailActivity extends AppCompatActivity {
         requestQueue.add(request_json);
 
     }
-
-
+    
 }
