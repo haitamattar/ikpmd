@@ -58,8 +58,8 @@ public class AddAdvertActivity extends AppCompatActivity {
     private Button saveBtn;
     private EditText titleText, descText;
     private CategoryAdapter adapter;
-    private final String getCategoryUrl = "http://192.168.1.233:8888/categories"; //school.haitamattar.com
-    private final String postNewAdvert = "http://192.168.1.233:8888/addAdvert";
+    private final String getCategoryUrl = "http://school.haitamattar.com/categories"; //school.haitamattar.com
+    private final String postNewAdvert = "http://school.haitamattar.com/addAdvert";
     private String encodedImage = null;
 
     @Override

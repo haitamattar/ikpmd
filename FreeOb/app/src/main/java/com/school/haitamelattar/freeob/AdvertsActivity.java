@@ -27,7 +27,7 @@ public class AdvertsActivity extends AppCompatActivity {
 
     private ListView advertsListView;
     private RequestQueue requestQueue;
-    private final String getUrl = "http://192.168.1.233:8888/adverts";
+    private final String getUrl = "http://school.haitamattar.com/adverts";
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;

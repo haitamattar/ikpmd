@@ -144,7 +144,7 @@ public class AdvertDetailActivity extends AppCompatActivity {
 
     // Visit advert
     public void visitAdvert(String userId, String advertId, RequestQueue requestQueue) {
-        String url = "http://192.168.1.233:8888/visitAdvert";
+        String url = "http://school.haitamattar.com/visitAdvert";
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("userId", userId);
