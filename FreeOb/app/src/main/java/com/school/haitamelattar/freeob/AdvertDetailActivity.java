@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -41,6 +43,7 @@ public class AdvertDetailActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private RequestQueue requestQueue;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +65,14 @@ public class AdvertDetailActivity extends AppCompatActivity {
 
         final ImageView imageView = (ImageView) this.findViewById(R.id.advertDetailImage);
         byte[] decodedString = Base64.decode(advert.getImage(), Base64.DEFAULT);
+
         final Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         imageView.post(new Runnable() {
             @Override
             public void run() {
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, imageView.getWidth(), imageView.getHeight(), false));
+                imageView.setImageBitmap(decodedByte);
+//                imageView.setAdjustViewBounds(true);
+//                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             }
         });
 
@@ -138,7 +144,7 @@ public class AdvertDetailActivity extends AppCompatActivity {
 
     // Visit advert
     public void visitAdvert(String userId, String advertId, RequestQueue requestQueue) {
-        String url = "http://192.168.1.235:8888/visitAdvert";
+        String url = "http://192.168.1.233:8888/visitAdvert";
         // Post params to be sent to the server
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("userId", userId);
@@ -168,5 +174,5 @@ public class AdvertDetailActivity extends AppCompatActivity {
         requestQueue.add(request_json);
 
     }
-    
+
 }

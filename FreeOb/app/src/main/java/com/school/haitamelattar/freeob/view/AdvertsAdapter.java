@@ -1,6 +1,10 @@
 package com.school.haitamelattar.freeob.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,18 +76,27 @@ public class AdvertsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        TextView titleTextView = viewHolder.titleTextView;
-        TextView descriptionTextView = viewHolder.descriptionTextView;
-        TextView categoryTextView = viewHolder.categoryTextView;
-        ImageView iconImageView = viewHolder.iconImageView;
+        final TextView titleTextView = viewHolder.titleTextView;
+        final TextView descriptionTextView = viewHolder.descriptionTextView;
+        final TextView categoryTextView = viewHolder.categoryTextView;
+        final ImageView iconImageView = viewHolder.iconImageView;
 
-        Advert advert = adverts[i];
+        final Advert advert = adverts[i];
+
+        iconImageView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (advert.getImage() != null) {
+                    byte[] decodedString = Base64.decode(advert.getImage(), Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    if (decodedByte != null) iconImageView.setImageBitmap(decodedByte);
+                }
+            }
+        });
 
         titleTextView.setText(advert.getName());
         descriptionTextView.setText(advert.getDescription());
         categoryTextView.setText(advert.getCategoryName());
-
-        iconImageView.setImageResource(R.mipmap.ic_launcher);
 
         return view;
     }

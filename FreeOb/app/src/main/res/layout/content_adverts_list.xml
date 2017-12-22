@@ -9,6 +9,7 @@
         android:id="@+id/advertIcon"
         android:layout_width="85dp"
         android:layout_height="85dp"
+        android:scaleType="centerCrop"
         tools:contentDescription=""
         tools:src="@mipmap/ic_launcher" />
 
