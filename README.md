@@ -4,7 +4,7 @@ This is an Android application made for a school project. With this application 
 
 Haitam el Attar, s1101419
 
-Jordy van Dijk, s1101949
+[Jordy van Dijk, s1101949](https://github.com/williamvdijk) 
 
 ## Technologies used
 + [PHP (RESTful)](http://php.net/) 
