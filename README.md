@@ -12,12 +12,12 @@ Haitam el Attar, s1101419
 + [MySQL](https://www.mysql.com/)
 
 ## Screens
-![alt text](https://lh5.googleusercontent.com/4A7xwHL_CqpyGw70P8CbOFn763cjWx5c_tMDIl3kIc3KG1AZN3nRYVN2ICkQ3X_kLFoj0FZBP38yid__6Wpk=w3360-h1772-rw)
+![alt text](https://i.imgur.com/U3h9MvZ.png)
 
 
-![alt text](https://lh3.googleusercontent.com/xB0LxSk-DLYHIw6PGf9g2bAEc9EDyF8bcC6pME6VpVEg7Wn2cARJaoWxNTdtArqXxaFB2xWUCzRfTWYkLeav=w3360-h1054-rw)
+![alt text](https://i.imgur.com/AOzdUo5.png)
 
-![alt text](https://lh5.googleusercontent.com/iIReO77kd4BLth1T93cm9kdlOa0SIE-0znNGtxysdups9CZm0kHxnrxseqk6EcsmAcoBoi6BgboNufSDtpZr=w3360-h1054-rw)
+![alt text](https://i.imgur.com/GbMe5tP.png)
 
-![alt text](https://lh3.googleusercontent.com/bDPk-VIoucn0I702qAnIJqhOMBc66YSTUJKu1Q0OSXX0HjU17NRv4Y8ZQirZpJMPrqoI33ZRVhY7qUGQnGYE=w1960-h2514-rw)
+![alt text](https://i.imgur.com/Ast80Fy.png)
 
